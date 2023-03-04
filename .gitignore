@@ -1,0 +1,8 @@
+# General
+.idea/
+
+# Environment
+.env
+
+# Python
+*.pyc

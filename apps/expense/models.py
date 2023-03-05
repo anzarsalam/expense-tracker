@@ -21,7 +21,7 @@ class Expense(models.Model):
     category = models.ForeignKey(ExpenseCategory, on_delete=models.RESTRICT)
     date = models.DateField()
     description = models.CharField(max_length=255, null=True, blank=True)
-    spent_by = models.ForeignKey(AppUser, models.RESTRICT, related_name='spent_expenses')
+    # spent_by = models.ForeignKey(AppUser, models.RESTRICT, related_name='spent_expenses') # ToDo: Implement later on group expense implementation
     user = models.ForeignKey(AppUser, on_delete=models.RESTRICT, related_name='expenses')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
 

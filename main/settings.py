@@ -25,7 +25,7 @@ environ.Env.read_env(BASE_DIR / '.env')
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-zgi#owehp@gaa2b5*@zp=ww9mo@$s6s3sxl-ahwy!_@1fwhjf5'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
@@ -34,8 +34,17 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-LIBRARY_APPS = [
+DJANGO_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
 
+LIBRARY_APPS = [
+    'rest_framework',
 ]
 
 PROJECT_APPS = [
@@ -44,14 +53,7 @@ PROJECT_APPS = [
     'apps.users'
 ]
 
-INSTALLED_APPS = [
-                     'django.contrib.admin',
-                     'django.contrib.auth',
-                     'django.contrib.contenttypes',
-                     'django.contrib.sessions',
-                     'django.contrib.messages',
-                     'django.contrib.staticfiles',
-                 ] + PROJECT_APPS
+INSTALLED_APPS = DJANGO_APPS + LIBRARY_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -88,8 +90,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication'
     ],
-    # 'EXCEPTION_HANDLER':
-    #     'utilities.handlers.exception_handler',
+    'EXCEPTION_HANDLER':
+        'utilities.handlers.exception_handler',
 }
 
 WSGI_APPLICATION = 'main.wsgi.application'

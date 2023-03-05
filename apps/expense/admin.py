@@ -10,4 +10,4 @@ class ExpenseCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Expense)
 class ExpenseAdmin(admin.ModelAdmin):
-    list_display = ['date', 'amount', 'description', 'spent_by', 'category']
+    list_display = ['date', 'amount', 'description', 'category']

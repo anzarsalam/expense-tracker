@@ -7,7 +7,7 @@ from apps.expense.serializers.categories import ExpenseCategorySerializer
 class ExpenseCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Expense
-        fields = ['id', 'category', 'date', 'description', 'spent_by', 'amount']
+        fields = ['id', 'category', 'date', 'description', 'amount']
         extra_kwargs = {'category': {'write_only': True}}
 
 
@@ -16,4 +16,4 @@ class ExpenseListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Expense
-        fields = ['id', 'category', 'date', 'description', 'spent_by', 'amount']
+        fields = ['id', 'category', 'date', 'description', 'amount']

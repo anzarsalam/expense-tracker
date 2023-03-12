@@ -1,6 +1,6 @@
 from django.db import models
 
-from apps.users.models import AppUser
+from apps.user.models import AppUser
 
 
 class IncomeCategory(models.Model):

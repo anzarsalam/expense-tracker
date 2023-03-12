@@ -1,0 +1,50 @@
+version: '3.7'
+
+services:
+  nginx:
+    image: ghcr.io/anzarsalam/expense-tracker/nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - "./logs/nginx:/var/log/nginx/"
+      - static_data:/code/static
+      - media_data:/code/media
+    depends_on:
+      - web
+    networks:
+      - stream_common_net
+  db:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "${DB_PORT}:5432"
+    env_file:
+      - ./.env
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    networks:
+      - stream_common_net
+  web:
+    build: .
+    command: gunicorn main.wsgi --bind 0.0.0.0:8000
+    expose:
+      - ${WEB_PORT}
+    env_file:
+      - ./.env
+    networks:
+      - stream_common_net
+    depends_on:
+      - db
+    volumes:
+      - static_data:/code/static
+      - media_data:/code/media
+volumes:
+  postgres_data:
+  static_data:
+  media_data:
+networks:
+  stream_common_net:
+    driver: bridge
